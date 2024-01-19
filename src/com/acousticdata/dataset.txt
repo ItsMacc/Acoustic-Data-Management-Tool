@@ -1,0 +1,1 @@
+timestamp: 11th January 2023, frequency: 120, amplitude: 20, duration: 0.3
