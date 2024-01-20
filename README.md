@@ -61,7 +61,7 @@
 
 ## Contributing
 
-Contributions are welcome! Please follow the [Contribution Guidelines](CONTRIBUTING.md).
+Contributions are welcome! Please follow the Contribution Guidelines.
 
 
 ## Acknowledgements
