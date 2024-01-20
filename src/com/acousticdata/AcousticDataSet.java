@@ -1,5 +1,7 @@
 package com.acousticdata;
 
+import com.acousticdata.exceptions.IllegalData;
+
 import java.util.Comparator;
 
 /**
@@ -15,7 +17,19 @@ public class AcousticDataSet {
     private double duration;
 
     //Constructor
-    public AcousticDataSet(String timestamp, int frequency, int amplitude, double duration){
+    public AcousticDataSet(String timestamp, int frequency, int amplitude, double duration) throws IllegalData {
+        if(timestamp == null || timestamp.isBlank()){
+            throw new IllegalData("Illegal Data: "+timestamp);
+        }
+        if(frequency<0){
+            throw new IllegalData("Illegal Data: "+frequency);
+        }
+        if(amplitude<0){
+            throw new IllegalData("Illegal Data: "+amplitude);
+        }
+        if(duration<=0){
+            throw new IllegalData("Illegal Data: "+duration);
+        }
         this.timestamp = timestamp;
         this.frequency = frequency;
         this.amplitude = amplitude;
@@ -41,15 +55,24 @@ public class AcousticDataSet {
 
 
     //Setters
-    public void setDuration(double duration) {
+    public void setDuration(double duration) throws IllegalData {
+        if (duration<=0){
+            throw new IllegalData("Illegal Data: Cannot set duration to "+duration);
+        }
         this.duration = duration;
     }
 
-    public void setFrequency(int frequency) {
+    public void setFrequency(int frequency) throws IllegalData {
+        if (frequency<0){
+            throw new IllegalData("Illegal Data: Cannot set frequency to "+frequency);
+        }
         this.frequency = frequency;
     }
 
-    public void setAmplitude(int amplitude) {
+    public void setAmplitude(int amplitude) throws IllegalData{
+        if (amplitude<0){
+            throw new IllegalData("Illegal Data: Cannot set amplitude to "+frequency);
+        }
         this.amplitude = amplitude;
     }
 
