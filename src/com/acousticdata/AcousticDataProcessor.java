@@ -9,7 +9,5 @@ public class AcousticDataProcessor {
 
         DataReader dataReader = new DataReader();
         List<AcousticDataSet> dataSet = dataReader.readData("src/com/acousticdata/dataset.txt");
-
-        System.out.println(dataSet);
     }
 }

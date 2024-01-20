@@ -1,5 +1,7 @@
 package com.acousticdata;
 
+import java.util.Comparator;
+
 /**
  * A class to represent acoustic data
  * @author Aakarshan Khosla
@@ -61,8 +63,16 @@ public class AcousticDataSet {
                 "duration (s): " + duration + "\n" +"}";
     }
 
-    public static void main(String[] args) {
-        AcousticDataSet a = new AcousticDataSet("12th jan",10,20,30);
-        System.out.println(a);
-    }
+    //Comparators
+    public static Comparator<AcousticDataSet> BY_FREQUENCY =
+            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.frequency,a2.frequency);
+
+    public static Comparator<AcousticDataSet> BY_AMPLITUDE =
+            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.amplitude,a2.amplitude);
+
+    public static Comparator<AcousticDataSet> BY_DURATION =
+            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.duration,a2.duration);
+
+    public static Comparator<AcousticDataSet> BY_TIMESTAMP =
+            (AcousticDataSet a1, AcousticDataSet a2) -> a1.timestamp.compareTo(a2.timestamp);
 }
