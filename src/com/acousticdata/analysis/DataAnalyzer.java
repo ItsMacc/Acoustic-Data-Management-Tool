@@ -40,6 +40,8 @@ public class DataAnalyzer {
         data.put("standard deviation (duration)",Algorithms.standardDeviation(acousticDataSetList,"duration"));
         data.put("standard deviation (temperature)",Algorithms.standardDeviation(acousticDataSetList,"temperature"));
 
+        data.put("Energy of signal",Algorithms.calculateEnergy(acousticDataSetList,date));
+
         return data;
     }
 }

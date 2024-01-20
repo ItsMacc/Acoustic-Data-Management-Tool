@@ -93,6 +93,20 @@ public class Algorithms {
         return calculateMedian(getDataForDate(acousticDataSetList,"temperature",date));
     }
 
+    /**
+     * Calculate the energy of acoustic signal of data
+     * @param data data whose energy we have to calculate
+     * @return energy of acoustic signal of data
+     */
+    public static double calculateEnergy(List<AcousticDataSet> acousticDataSetList,String date){
+        List<Object> data = getDataForDate(acousticDataSetList,"amplitude",date);
+        double energy = 0;
+        for(Object amplitude : data){
+            energy +=  ((int)amplitude * (int)amplitude);
+        }
+        return energy;
+    }
+
     //----------------Helper methods----------------------------
 
     /**
