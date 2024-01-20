@@ -31,7 +31,7 @@
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/acoustic-data-management-tool.git
+    git clone git@github.com:ItsMacc/Acoustic-Data-Management-Tool.git
     ```
 
 2. Navigate to the project directory:
@@ -54,17 +54,15 @@
     java -cp out com.acousticdata.AcousticDataProcessor
     ```
 
-2. Enter the file path when prompted.
+2. Enter the file path when prompted.(Make sure to put the file path relative to 'out' folder)
 
 3. View the analysis results.
+4. If your data is formatted differently, feel free to change the code and get expected results!
 
 ## Contributing
 
 Contributions are welcome! Please follow the [Contribution Guidelines](CONTRIBUTING.md).
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
