@@ -25,7 +25,7 @@ public class AcousticDataProcessor {
     }
 
     private static String getFilePathFromUser() {
-        System.out.print("Please enter the path to the data file (e.g., ../../../src/com/acousticdata/dataset.txt): ");
+        System.out.print("Please enter the path to the data file (e.g., src/com/acousticdata/dataset.txt): ");
         return scanner.nextLine().trim();
     }
 
