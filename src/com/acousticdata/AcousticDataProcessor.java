@@ -8,9 +8,11 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class AcousticDataProcessor {
-    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
 
+        for(String s:args){
+            System.out.println(args);
+        }
         DataReader dataReader = new DataReader();
         List<AcousticDataSet> dataSet = dataReader.readData("src/com/acousticdata/dataset.txt");
 
