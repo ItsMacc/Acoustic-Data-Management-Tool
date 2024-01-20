@@ -2,6 +2,7 @@ package com.acousticdata.analysis;
 
 import com.acousticdata.AcousticDataSet;
 import com.acousticdata.algorithms.Algorithms;
+import com.acousticdata.exceptions.InvalidDateForAnalysis;
 
 import java.util.*;
 
@@ -22,26 +23,34 @@ public class DataAnalyzer {
      * @param date the date whose data we want
      * @return key value pairs of analysis
      */
-    public Map<String , Double> analyzeData(String date){
+    public void analyzeData(String date) {
         Map<String, Double> data = new LinkedHashMap<>();
 
-        data.put("mean (Frequency)",Algorithms.meanFrequency(acousticDataSetList,date));
-        data.put("mean (Amplitude)",Algorithms.meanAmplitude(acousticDataSetList,date));
-        data.put("mean (Duration)",Algorithms.meanDuration(acousticDataSetList,date));
-        data.put("mean (Temperature)",Algorithms.meanTemperature(acousticDataSetList,date));
+        try {
+            data.put("mean (Frequency)",Algorithms.meanFrequency(acousticDataSetList,date));
+            data.put("mean (Amplitude)",Algorithms.meanAmplitude(acousticDataSetList,date));
+            data.put("mean (Duration)",Algorithms.meanDuration(acousticDataSetList,date));
+            data.put("mean (Temperature)",Algorithms.meanTemperature(acousticDataSetList,date));
 
-        data.put("median (Frequency)",Algorithms.medianFrequency(acousticDataSetList,date));
-        data.put("median (Amplitude)",Algorithms.medianAmplitude(acousticDataSetList,date));
-        data.put("median (Duration)",Algorithms.medianDuration(acousticDataSetList,date));
-        data.put("median (Temperature)",Algorithms.medianTemperature(acousticDataSetList,date));
+            data.put("median (Frequency)",Algorithms.medianFrequency(acousticDataSetList,date));
+            data.put("median (Amplitude)",Algorithms.medianAmplitude(acousticDataSetList,date));
+            data.put("median (Duration)",Algorithms.medianDuration(acousticDataSetList,date));
+            data.put("median (Temperature)",Algorithms.medianTemperature(acousticDataSetList,date));
 
-        data.put("standard deviation (frequency)",Algorithms.standardDeviation(acousticDataSetList,"frequency"));
-        data.put("standard deviation (amplitude)",Algorithms.standardDeviation(acousticDataSetList,"amplitude"));
-        data.put("standard deviation (duration)",Algorithms.standardDeviation(acousticDataSetList,"duration"));
-        data.put("standard deviation (temperature)",Algorithms.standardDeviation(acousticDataSetList,"temperature"));
+            data.put("standard deviation (frequency)",Algorithms.standardDeviation(acousticDataSetList,"frequency"));
+            data.put("standard deviation (amplitude)",Algorithms.standardDeviation(acousticDataSetList,"amplitude"));
+            data.put("standard deviation (duration)",Algorithms.standardDeviation(acousticDataSetList,"duration"));
+            data.put("standard deviation (temperature)",Algorithms.standardDeviation(acousticDataSetList,"temperature"));
 
-        data.put("Energy of signal",Algorithms.calculateEnergy(acousticDataSetList,date));
+            data.put("Energy of signal",Algorithms.calculateEnergy(acousticDataSetList,date));
 
-        return data;
+            System.out.println(data);
+        } catch (InvalidDateForAnalysis e) {
+            e.getMessage();
+        }
+        //If index is out of bounds, this means list is empty since there is no data for the current timestamp
+        catch (IndexOutOfBoundsException e){
+            System.err.println("Invalid Date for analysis: No date found");
+        }
     }
 }

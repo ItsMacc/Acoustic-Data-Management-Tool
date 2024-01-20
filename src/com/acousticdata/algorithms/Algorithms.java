@@ -2,6 +2,8 @@ package com.acousticdata.algorithms;
 
 
 import com.acousticdata.AcousticDataSet;
+import com.acousticdata.exceptions.InvalidDateForAnalysis;
+import com.acousticdata.io.DataReader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,9 +19,10 @@ public class Algorithms {
      * A method to find the mean of all the frequencies in the dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the frequencies in dataset of a particular date
      */
-    public static double meanFrequency(List<AcousticDataSet> acousticDataSet, String date){
+    public static double meanFrequency(List<AcousticDataSet> acousticDataSet, String date) throws InvalidDateForAnalysis{
         return calculateMean(getDataForDate(acousticDataSet,"frequency",date));
     }
 
@@ -27,9 +30,10 @@ public class Algorithms {
      * A method to find the mean of all the amplitudes in dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the amplitudes in dataset of a particular date
      */
-    public static double meanAmplitude(List<AcousticDataSet> acousticDataSet, String date){
+    public static double meanAmplitude(List<AcousticDataSet> acousticDataSet, String date) throws InvalidDateForAnalysis{
         return calculateMean(getDataForDate(acousticDataSet,"amplitude",date));
     }
 
@@ -37,9 +41,10 @@ public class Algorithms {
      * A method to find the mean of all the durations in dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the durations in dataset of a particular date
      */
-    public static double meanDuration(List<AcousticDataSet> acousticDataSet, String date){
+    public static double meanDuration(List<AcousticDataSet> acousticDataSet, String date) throws InvalidDateForAnalysis{
         return calculateMean(getDataForDate(acousticDataSet,"duration",date));
     }
 
@@ -47,9 +52,10 @@ public class Algorithms {
      * A method to find the mean of all the temperatures in dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the temperatures in dataset of a particular date
      */
-    public static double meanTemperature(List<AcousticDataSet> acousticDataSetList, String date){
+    public static double meanTemperature(List<AcousticDataSet> acousticDataSetList, String date) throws InvalidDateForAnalysis{
         return calculateMean(getDataForDate(acousticDataSetList,"temperature",date));
     }
 
@@ -57,9 +63,10 @@ public class Algorithms {
      * A method to find the median of all the frequencies in dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the frequencies in dataset of a particular date
      */
-    public static double medianFrequency(List<AcousticDataSet> acousticDataSetList,String date){
+    public static double medianFrequency(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
         return calculateMedian(getDataForDate(acousticDataSetList,"frequency",date));
     }
 
@@ -67,9 +74,10 @@ public class Algorithms {
      * A method to find the median of all the amplitudes in dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the amplitudes in dataset of a particular date
      */
-    public static double medianAmplitude(List<AcousticDataSet> acousticDataSetList, String date){
+    public static double medianAmplitude(List<AcousticDataSet> acousticDataSetList, String date) throws InvalidDateForAnalysis{
         return calculateMedian(getDataForDate(acousticDataSetList,"amplitude",date));
     }
 
@@ -77,9 +85,10 @@ public class Algorithms {
      * A method to find the median of all the duration in dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the duration in dataset of a particular date
      */
-    public static double medianDuration(List<AcousticDataSet> acousticDataSetList,String date){
+    public static double medianDuration(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
         return calculateMedian(getDataForDate(acousticDataSetList,"duration",date));
     }
 
@@ -87,18 +96,20 @@ public class Algorithms {
      * A method to find the median of all the temperature in dataset of a particular date
      * @param acousticDataSet the dataset that we want to analyze
      * @param date the date whose data we want.
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the temperature in dataset of a particular date
      */
-    public static double medianTemperature(List<AcousticDataSet> acousticDataSetList,String date){
+    public static double medianTemperature(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
         return calculateMedian(getDataForDate(acousticDataSetList,"temperature",date));
     }
 
     /**
      * Calculate the energy of acoustic signal of data
      * @param data data whose energy we have to calculate
+     * @throws InvalidDateForAnalysis if no record exists for date
      * @return energy of acoustic signal of data
      */
-    public static double calculateEnergy(List<AcousticDataSet> acousticDataSetList,String date){
+    public static double calculateEnergy(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
         List<Object> data = getDataForDate(acousticDataSetList,"amplitude",date);
         double energy = 0;
         for(Object amplitude : data){
@@ -116,7 +127,7 @@ public class Algorithms {
      * @param date the date whose data we want.
      * @return List of data for the specified type and date
      */
-    private static List<Object> getDataForDate(List<AcousticDataSet> dataSet, String data, String date) {
+    private static List<Object> getDataForDate(List<AcousticDataSet> dataSet, String data, String date) throws InvalidDateForAnalysis{
         List<Object> dataList = new ArrayList<>();
         switch (data) {
             case "timestamp":
@@ -124,6 +135,9 @@ public class Algorithms {
                     if (d.getTimestamp().equals(date)) {
                         dataList.add(d.getTimestamp());
                     }
+                }
+                if(dataList.size()==0){
+                    throw new InvalidDateForAnalysis("Invalid Date: No data found for data "+date);
                 }
                 break;
             case "frequency":
@@ -182,7 +196,7 @@ public class Algorithms {
      * @param data data whose median we have to calculate
      * @return median of data
      */
-    private static double calculateMedian(List<Object> data) {
+    private static double calculateMedian(List<Object> data){
         int size = data.size();
         if (size % 2 == 0) {
             // If the size is even, return the average of the middle two values
