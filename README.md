@@ -51,7 +51,7 @@
 1. Run the application:
 
     ```bash
-    java -cp out com.acousticdata.AcousticDataProcessor
+    java -jar out/artifacts/Acoustic_Data_Management_Tool_jar/Acoustic\ Data\ Management\ Tool.jar
     ```
 
 2. Enter the file path when prompted.(Make sure to put the file path relative to 'out' folder)
