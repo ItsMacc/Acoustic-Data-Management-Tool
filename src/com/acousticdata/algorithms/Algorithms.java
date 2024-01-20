@@ -69,32 +69,6 @@ public class Algorithms {
     }
 
 
-    /**
-     * A method to find the standard deviation of a dataset
-     * @param dataSet the dataset that we want to analyze
-     * @param data the type of data to retrieve ("frequency", "amplitude", "duration")
-     * @return standard deviation of the dataset
-     */
-    public static double standardDeviation(List<AcousticDataSet> dataSet, String data) {
-        List<Object> dataList = getData(dataSet, data);
-
-        double mean = calculateMean(dataList);
-        double sumOfSquaredDifferences = 0;
-
-        for (Object value : dataList) {
-            if (value instanceof Number) {
-                double difference = ((Number) value).doubleValue() - mean;
-                sumOfSquaredDifferences += difference * difference;
-            } else {
-                throw new IllegalArgumentException("Invalid data type for standard deviation calculation");
-            }
-        }
-
-        double variance = sumOfSquaredDifferences / dataList.size();
-        return Math.sqrt(variance);
-    }
-
-
     //----------------Helper methods----------------------------
 
     /**
@@ -141,6 +115,11 @@ public class Algorithms {
         return dataList;
     }
 
+    /**
+     * Calculate the mean of data
+     * @param data data whose mean we have to calculate
+     * @return mean of data
+     */
     private static double calculateMean(List<Object> data) {
         double mean = 0;
         for (Object value : data) {
@@ -153,6 +132,11 @@ public class Algorithms {
         return mean / data.size();
     }
 
+    /**
+     * Calculate the median of data
+     * @param data data whose median we have to calculate
+     * @return median of data
+     */
     private static double calculateMedian(List<Object> data) {
         int size = data.size();
         if (size % 2 == 0) {
@@ -166,6 +150,12 @@ public class Algorithms {
         }
     }
 
+    /**
+     * A method to get data of a specific type
+     * @param dataSet the dataset that we want to analyze
+     * @param data the values of data to retrieve ("timestamp", "frequency", "amplitude", "duration")
+     * @return List of data for the specified type
+     */
     private static List<Object> getData(List<AcousticDataSet> dataSet, String data) {
         List<Object> dataList = new ArrayList<>();
         switch (data) {
@@ -193,5 +183,30 @@ public class Algorithms {
                 throw new IllegalArgumentException("Invalid data type: " + data);
         }
         return dataList;
+    }
+
+    /**
+     * A method to find the standard deviation of a dataset
+     * @param dataSet the dataset that we want to analyze
+     * @param data the type of data to retrieve ("frequency", "amplitude", "duration")
+     * @return standard deviation of the dataset
+     */
+    public static double standardDeviation(List<AcousticDataSet> dataSet, String data) {
+        List<Object> dataList = getData(dataSet, data);
+
+        double mean = calculateMean(dataList);
+        double sumOfSquaredDifferences = 0;
+
+        for (Object value : dataList) {
+            if (value instanceof Number) {
+                double difference = ((Number) value).doubleValue() - mean;
+                sumOfSquaredDifferences += difference * difference;
+            } else {
+                throw new IllegalArgumentException("Invalid data type for standard deviation calculation");
+            }
+        }
+
+        double variance = sumOfSquaredDifferences / dataList.size();
+        return Math.sqrt(variance);
     }
 }
