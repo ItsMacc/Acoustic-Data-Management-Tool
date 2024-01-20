@@ -9,7 +9,7 @@
  *     <li>{@code analysis}: Contains classes for analyzing acoustic data.</li>
  *     <li>{@code visualization}: Deals with visualizing acoustic data.</li>
  *     <li>{@code algorithms}: Houses acoustic algorithms and signal processing methods.</li>
- *     <li>{@code util}: Contains utility classes used across the entire acoustic data project.</li>
+ *     <li> {@code exceptions}: Contains all the exceptions for acoustic data.</li>
  * </ul>
  * </p>
  *
