@@ -15,9 +15,10 @@ public class AcousticDataSet {
     private int frequency;
     private int amplitude;
     private double duration;
-
+    private String oceanLevel;
+    private double temperature;
     //Constructor
-    public AcousticDataSet(String timestamp, int frequency, int amplitude, double duration) throws IllegalData {
+    public AcousticDataSet(String timestamp, int frequency, int amplitude, double duration, String oceanLevel, double temperature) throws IllegalData {
         if(timestamp == null || timestamp.isBlank()){
             throw new IllegalData("Illegal Data: "+timestamp);
         }
@@ -30,10 +31,15 @@ public class AcousticDataSet {
         if(duration<=0){
             throw new IllegalData("Illegal Data: "+duration);
         }
+        if(oceanLevel==null || oceanLevel.isBlank()){
+            throw new IllegalData("Illegal Data: "+oceanLevel);
+        }
         this.timestamp = timestamp;
         this.frequency = frequency;
         this.amplitude = amplitude;
         this.duration = duration;
+        this.oceanLevel = oceanLevel;
+        this.temperature = temperature;
     }
 
     //Getters
@@ -53,6 +59,13 @@ public class AcousticDataSet {
         return duration;
     }
 
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public String getOceanLevel(){
+        return oceanLevel;
+    }
 
     //Setters
     public void setDuration(double duration) throws IllegalData {
@@ -76,6 +89,17 @@ public class AcousticDataSet {
         this.amplitude = amplitude;
     }
 
+    public void setOceanLevel(String oceanLevel) throws IllegalData{
+        if(oceanLevel==null || oceanLevel.isBlank()){
+            throw new IllegalData("Illegal Data: "+oceanLevel);
+        }
+        this.oceanLevel = oceanLevel;
+    }
+
+    public void setTemperature(double temperature) throws IllegalData{
+        this.temperature = temperature;
+    }
+
     //Other methods
     @Override
     public String toString(){
@@ -83,7 +107,9 @@ public class AcousticDataSet {
                 "timestamp: " + timestamp + "\n" +
                 "frequency (hz): " + frequency + "\n" +
                 "amplitude (m): " + amplitude + "\n" +
-                "duration (s): " + duration + "\n" +"}";
+                "duration (s): " + duration + "\n" +
+                "ocean level: " + duration + "\n" +
+                "temperature (°C): " + duration + "}";
     }
 
     //Comparators
@@ -98,4 +124,8 @@ public class AcousticDataSet {
 
     public static Comparator<AcousticDataSet> BY_TIMESTAMP =
             (AcousticDataSet a1, AcousticDataSet a2) -> a1.timestamp.compareTo(a2.timestamp);
+
+    public static Comparator<AcousticDataSet> BY_TEMPERATURE =
+            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.temperature,a2.temperature);
+
 }

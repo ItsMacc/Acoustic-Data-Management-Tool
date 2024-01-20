@@ -28,12 +28,17 @@ public class DataAnalyzer {
         data.put("mean (Frequency)",Algorithms.meanFrequency(acousticDataSetList,date));
         data.put("mean (Amplitude)",Algorithms.meanAmplitude(acousticDataSetList,date));
         data.put("mean (Duration)",Algorithms.meanDuration(acousticDataSetList,date));
+        data.put("mean (Temperature)",Algorithms.meanTemperature(acousticDataSetList,date));
+
         data.put("median (Frequency)",Algorithms.medianFrequency(acousticDataSetList,date));
         data.put("median (Amplitude)",Algorithms.medianAmplitude(acousticDataSetList,date));
         data.put("median (Duration)",Algorithms.medianDuration(acousticDataSetList,date));
+        data.put("median (Temperature)",Algorithms.medianTemperature(acousticDataSetList,date));
+
         data.put("standard deviation (frequency)",Algorithms.standardDeviation(acousticDataSetList,"frequency"));
         data.put("standard deviation (amplitude)",Algorithms.standardDeviation(acousticDataSetList,"amplitude"));
         data.put("standard deviation (duration)",Algorithms.standardDeviation(acousticDataSetList,"duration"));
+        data.put("standard deviation (temperature)",Algorithms.standardDeviation(acousticDataSetList,"temperature"));
 
         return data;
     }

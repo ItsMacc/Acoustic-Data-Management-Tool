@@ -43,6 +43,15 @@ public class Algorithms {
         return calculateMean(getDataForDate(acousticDataSet,"duration",date));
     }
 
+    /**
+     * A method to find the mean of all the temperatures in dataset of a particular date
+     * @param acousticDataSet the dataset that we want to analyze
+     * @param date the date whose data we want.
+     * @return mean of the temperatures in dataset of a particular date
+     */
+    public static double meanTemperature(List<AcousticDataSet> acousticDataSetList, String date){
+        return calculateMean(getDataForDate(acousticDataSetList,"temperature",date));
+    }
 
     /**
      * A method to find the median of all the frequencies in dataset of a particular date
@@ -64,10 +73,25 @@ public class Algorithms {
         return calculateMedian(getDataForDate(acousticDataSetList,"amplitude",date));
     }
 
+    /**
+     * A method to find the median of all the duration in dataset of a particular date
+     * @param acousticDataSet the dataset that we want to analyze
+     * @param date the date whose data we want.
+     * @return median of the duration in dataset of a particular date
+     */
     public static double medianDuration(List<AcousticDataSet> acousticDataSetList,String date){
         return calculateMedian(getDataForDate(acousticDataSetList,"duration",date));
     }
 
+    /**
+     * A method to find the median of all the temperature in dataset of a particular date
+     * @param acousticDataSet the dataset that we want to analyze
+     * @param date the date whose data we want.
+     * @return median of the temperature in dataset of a particular date
+     */
+    public static double medianTemperature(List<AcousticDataSet> acousticDataSetList,String date){
+        return calculateMedian(getDataForDate(acousticDataSetList,"temperature",date));
+    }
 
     //----------------Helper methods----------------------------
 
@@ -106,6 +130,13 @@ public class Algorithms {
                 for (AcousticDataSet d : dataSet) {
                     if (d.getTimestamp().equals(date)) {
                         dataList.add(d.getDuration());
+                    }
+                }
+                break;
+            case "temperature":
+                for (AcousticDataSet d : dataSet) {
+                    if (d.getTimestamp().equals(date)) {
+                        dataList.add(d.getTemperature());
                     }
                 }
                 break;
@@ -177,6 +208,11 @@ public class Algorithms {
             case "duration":
                 for (AcousticDataSet d : dataSet) {
                     dataList.add(d.getDuration());
+                }
+                break;
+            case "temperature":
+                for (AcousticDataSet d : dataSet) {
+                    dataList.add(d.getTemperature());
                 }
                 break;
             default:

@@ -58,8 +58,11 @@ public class DataReader {
         int frequency = extractIntValue(keyValuePairs[1], "frequency");
         int amplitude = extractIntValue(keyValuePairs[2], "amplitude");
         double duration = extractDoubleValue(keyValuePairs[3], "duration");
+        String oceanLevel = extractValue(keyValuePairs[4], "ocean_level");
+        double temperature = extractDoubleValue(keyValuePairs[5],"temperature");
 
-        return new AcousticDataSet(timestamp, frequency, amplitude, duration);
+
+        return new AcousticDataSet(timestamp, frequency, amplitude, duration,oceanLevel,temperature);
     }
 
     /**
