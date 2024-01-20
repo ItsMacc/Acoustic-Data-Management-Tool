@@ -58,6 +58,7 @@
 
 3. View the analysis results.
 4. If your data is formatted differently, feel free to change the code and get expected results!
+5. A sample file has been provided. Ensure you match the data given in the sample format.
 
 ## Contributing
 
