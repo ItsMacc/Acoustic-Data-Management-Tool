@@ -5,8 +5,10 @@ import com.acousticdata.io.DataReader;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class AcousticDataProcessor {
+    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
 
         DataReader dataReader = new DataReader();

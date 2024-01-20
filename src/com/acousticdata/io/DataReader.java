@@ -1,6 +1,7 @@
 package com.acousticdata.io;
 
 import com.acousticdata.AcousticDataSet;
+import com.acousticdata.exceptions.IllegalData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,6 +38,8 @@ public class DataReader {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IllegalData e) {
+            e.printStackTrace();
         }
 
         return dataSet;
@@ -48,7 +51,7 @@ public class DataReader {
      * @param line the line of data containing key-value pairs.
      * @return an AcousticDataSet object.
      */
-    private static AcousticDataSet parseData(String line) {
+    private static AcousticDataSet parseData(String line) throws IllegalData {
         String[] keyValuePairs = line.split(", ");
 
         String timestamp = extractValue(keyValuePairs[0], "timestamp");
