@@ -3,10 +3,7 @@ package com.acousticdata.analysis;
 import com.acousticdata.AcousticDataSet;
 import com.acousticdata.algorithms.Algorithms;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A class to analyze and process acoustic data.
@@ -26,7 +23,7 @@ public class DataAnalyzer {
      * @return key value pairs of analysis
      */
     public Map<String , Double> analyzeData(String date){
-        Map<String, Double> data = new HashMap<>();
+        Map<String, Double> data = new LinkedHashMap<>();
 
         data.put("mean (Frequency)",Algorithms.meanFrequency(acousticDataSetList,date));
         data.put("mean (Amplitude)",Algorithms.meanAmplitude(acousticDataSetList,date));
