@@ -19,3 +19,4 @@ timestamp: 11th January 2023, frequency: 100, amplitude: 30, duration: 0.3, ocea
 timestamp: 11th January 2023, frequency: 120, amplitude: 20, duration: 0.8, ocean_level: normal, temperature: 25
 timestamp: 11th January 2023, frequency: 135, amplitude: 15, duration: 0.5, ocean_level: high, temperature: 18
 timestamp: 11th January 2023, frequency: 92, amplitude: 25, duration: 0.2, ocean_level: low, temperature: 22
+timestamp: 12th January 2023, frequency: 92, amplitude: 25, duration: 0.2, ocean_level: low, temperature: 22
