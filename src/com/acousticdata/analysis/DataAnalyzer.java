@@ -19,11 +19,34 @@ public class DataAnalyzer {
 
 
     /**
+     * A method to analyze the data of all dates
+     * @return a map of the following strucutre {date : {analysis:value} }
+     */
+    public Map<String, Map<String,Double>> analyzeData(){
+        Map<String, List<AcousticDataSet>> acousticData = new LinkedHashMap<>();
+        Map<String, Map<String,Double>> databaseRecord = new LinkedHashMap<>();
+
+        for (AcousticDataSet dataSet: acousticDataSetList){
+            String date = dataSet.getTimestamp();
+
+            acousticData.putIfAbsent(date, new ArrayList<>());
+            acousticData.get(date).add(dataSet);
+        }
+
+        Set<String> allDates = acousticData.keySet();
+
+        for(String date: allDates){
+            databaseRecord.put(date,analyzeData(date));
+        }
+        return databaseRecord;
+    }
+
+    /**
      * A method to analyze data of a particular date.
      * @param date the date whose data we want
      * @return key value pairs of analysis
      */
-    public void analyzeData(String date) {
+    public Map<String, Double> analyzeData(String date) {
         Map<String, Double> data = new LinkedHashMap<>();
 
         try {
@@ -44,7 +67,8 @@ public class DataAnalyzer {
 
             data.put("Energy of signal",Algorithms.calculateEnergy(acousticDataSetList,date));
 
-            System.out.println(data);
+            return data;
+
         } catch (InvalidDateForAnalysis e) {
             e.getMessage();
         }
@@ -52,5 +76,6 @@ public class DataAnalyzer {
         catch (IndexOutOfBoundsException e){
             System.err.println("Invalid Date for analysis: No date found");
         }
+        return data;
     }
 }
