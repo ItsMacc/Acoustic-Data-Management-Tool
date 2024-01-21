@@ -63,6 +63,7 @@
 ## Contributing
 
 Contributions are welcome! Please follow the Contribution Guidelines.
+Update the algorithms and the data format as per your needs.
 
 
 ## Acknowledgements
