@@ -17,7 +17,7 @@
 
 - Read acoustic data from a file.
 - Analyze data for a specific date.
-- Display mean, median, and standard deviation for frequency, amplitude, and duration.
+- Display mean, median, and standard deviation and energy levels for frequency, amplitude, and duration.
 
 ## Getting Started
 
