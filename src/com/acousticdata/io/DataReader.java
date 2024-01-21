@@ -2,9 +2,9 @@ package com.acousticdata.io;
 
 import com.acousticdata.AcousticDataSet;
 import com.acousticdata.exceptions.IllegalData;
+import com.acousticdata.exceptions.IllegalFileFormat;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +23,8 @@ public class DataReader {
      * @param filePath the path of the file.
      * @return a list of acoustic data sets.
      */
-    public List<AcousticDataSet> readData(String filePath) {
+    public List<AcousticDataSet> readData(String filePath) throws IllegalFileFormat{
+        validateFileFormat(filePath);
         List<AcousticDataSet> dataSet = new ArrayList<>();
 
         try {
@@ -98,5 +99,42 @@ public class DataReader {
     private static double extractDoubleValue(String pair, String key) {
         String val = extractValue(pair, key);
         return Double.parseDouble(val);
+    }
+
+
+    /**
+     * Checks if the file is in the correct format or not
+     * @param filePath the path of the file we want to validate
+     * @throws IllegalFileFormat if the format is illegal
+     */
+    private void validateFileFormat(String filePath) throws IllegalFileFormat {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            int lineNo = 0;
+            
+            while ((line = reader.readLine())!=null) {
+                String[] keyValuePair = line.split(", ");
+                lineNo++;
+                if (keyValuePair.length!=6){
+                    throw new IllegalFileFormat("Illegal File Format: Needed 6 fields, Found "+keyValuePair.length+" fields");
+                } else if (!keyValuePair[0].split(":")[0].equals("timestamp")) {
+                    throw new IllegalFileFormat("Illegal File Format: Please ensure 'timestamp' is the first field for line "+lineNo);
+                } else if (!keyValuePair[1].split(":")[0].equals("frequency")) {
+                    throw new IllegalFileFormat("Illegal File Format: Please ensure 'frequency' is the second field for line " +lineNo);
+                } else if (!keyValuePair[2].split(":")[0].equals("amplitude")) {
+                    throw new IllegalFileFormat("Illegal File Format: Please ensure 'amplitude' is the third field for line " +lineNo);
+                } else if (!keyValuePair[3].split(":")[0].equals("duration")) {
+                    throw new IllegalFileFormat("Illegal File Format: Please ensure 'duration' is the fourth field for line " +lineNo);
+                } else if (!keyValuePair[4].split(":")[0].equals("ocean_level")) {
+                    throw new IllegalFileFormat("Illegal File Format: Please ensure 'ocean_level' is the fifth field for line " +lineNo);
+                } else if (!keyValuePair[5].split(":")[0].equals("temperature")) {
+                    throw new IllegalFileFormat("Illegal File Format: Please ensure 'temperature' is the sixth field for line " +lineNo);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

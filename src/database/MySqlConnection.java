@@ -2,6 +2,7 @@ package database;
 
 import com.acousticdata.AcousticDataSet;
 import com.acousticdata.analysis.DataAnalyzer;
+import com.acousticdata.exceptions.IllegalFileFormat;
 import com.acousticdata.io.DataReader;
 
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class MySqlConnection {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalFileFormat {
         String jdbcUrl = "jdbc:mysql://localhost:3306/Acoustic_Data_Management";
         String username = "root";
         String password = "ilovedad";

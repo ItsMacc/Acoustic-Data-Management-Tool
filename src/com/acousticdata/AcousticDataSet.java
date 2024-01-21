@@ -108,8 +108,8 @@ public class AcousticDataSet {
                 "frequency (hz): " + frequency + "\n" +
                 "amplitude (m): " + amplitude + "\n" +
                 "duration (s): " + duration + "\n" +
-                "ocean level: " + duration + "\n" +
-                "temperature (°C): " + duration + "}";
+                "ocean level: " + oceanLevel + "\n" +
+                "temperature (°C): " + temperature + "}";
     }
 
     //Comparators
