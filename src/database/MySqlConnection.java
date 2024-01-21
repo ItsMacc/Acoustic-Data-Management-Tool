@@ -63,6 +63,12 @@ public class MySqlConnection {
         statement.executeUpdate(createTableQuery);
     }
 
+    /**
+     * A method to insert all records of analyzed data in SQL
+     * @param statement the statement that executes the querry
+     * @param analyzedData the data to be inserted in SQL
+     * @throws SQLException
+     */
     private static void insertAnalyzedData(Statement statement, Map<String, Map<String, Double>> analyzedData) throws SQLException {
         try {
             for (Map.Entry<String, Map<String, Double>> entry : analyzedData.entrySet()) {
