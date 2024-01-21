@@ -49,40 +49,45 @@ public class MySqlConnection {
         String createTableQuery = "CREATE TABLE IF NOT EXISTS AnalysisData ("
                 + "id INT AUTO_INCREMENT PRIMARY KEY,"
                 + "date VARCHAR(50) UNIQUE NOT NULL,"
-                + "meanFrequency DOUBLE,"
-                + "meanAmplitude DOUBLE,"
-                + "meanDuration DOUBLE,"
-                + "medianFrequency DOUBLE,"
-                + "medianAmplitude DOUBLE,"
-                + "medianDuration DOUBLE,"
-                + "stdDevFrequency DOUBLE,"
-                + "stdDevAmplitude DOUBLE,"
-                + "stdDevDuration DOUBLE,"
-                + "energy DOUBLE"
+                + "meanFrequency DOUBLE(6,3),"
+                + "meanAmplitude DOUBLE(6,3),"
+                + "meanDuration DOUBLE(6,3),"
+                + "medianFrequency DOUBLE(6,3),"
+                + "medianAmplitude DOUBLE(6,3),"
+                + "medianDuration DOUBLE(6,3),"
+                + "stdDevFrequency DOUBLE(6,3),"
+                + "stdDevAmplitude DOUBLE(6,3),"
+                + "stdDevDuration DOUBLE(6,3),"
+                + "energy DOUBLE(8,3)"
                 + ");";
         statement.executeUpdate(createTableQuery);
     }
 
     private static void insertAnalyzedData(Statement statement, Map<String, Map<String, Double>> analyzedData) throws SQLException {
-        for (Map.Entry<String, Map<String, Double>> entry : analyzedData.entrySet()) {
-            String date = entry.getKey();
-            Map<String, Double> analysis = entry.getValue();
+        try {
+            for (Map.Entry<String, Map<String, Double>> entry : analyzedData.entrySet()) {
+                String date = entry.getKey();
+                Map<String, Double> analysis = entry.getValue();
 
-            String insertQuery = "INSERT INTO AnalysisData (date, meanFrequency, meanAmplitude, meanDuration, " +
-                    "medianFrequency, medianAmplitude, medianDuration, stdDevFrequency, stdDevAmplitude, stdDevDuration, energy) " +
-                    "VALUES ('" + date + "', " +
-                    analysis.get("mean (Frequency)") + ", " +
-                    analysis.get("mean (Amplitude)") + ", " +
-                    analysis.get("mean (Duration)") + ", " +
-                    analysis.get("median (Frequency)") + ", " +
-                    analysis.get("median (Amplitude)") + ", " +
-                    analysis.get("median (Duration)") + ", " +
-                    analysis.get("standard deviation (frequency)") + ", " +
-                    analysis.get("standard deviation (amplitude)") + ", " +
-                    analysis.get("standard deviation (duration)") + ", " +
-                    analysis.get("Energy of signal") + ")";
+                String insertQuery = "INSERT INTO AnalysisData (date, meanFrequency, meanAmplitude, meanDuration, " +
+                        "medianFrequency, medianAmplitude, medianDuration, " +
+                        "stdDevFrequency, stdDevAmplitude, stdDevDuration, energy) " +
+                        "VALUES ('" + date + "', " +
+                        analysis.get("mean (Frequency)") + ", " +
+                        analysis.get("mean (Amplitude)") + ", " +
+                        analysis.get("mean (Duration)") + ", " +
+                        analysis.get("median (Frequency)") + ", " +
+                        analysis.get("median (Amplitude)") + ", " +
+                        analysis.get("median (Duration)") + ", " +
+                        analysis.get("standard deviation (frequency)") + ", " +
+                        analysis.get("standard deviation (amplitude)") + ", " +
+                        analysis.get("standard deviation (duration)") + ", " +
+                        analysis.get("Energy of signal") + ")";
 
-            statement.executeUpdate(insertQuery);
+                statement.executeUpdate(insertQuery);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
     }
 }
