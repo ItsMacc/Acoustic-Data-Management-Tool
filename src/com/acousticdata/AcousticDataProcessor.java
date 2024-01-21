@@ -26,7 +26,7 @@ public class AcousticDataProcessor {
 
         //Analyze the data
         DataAnalyzer dataAnalyzer =  new DataAnalyzer(acousticDataSetList);
-        dataAnalyzer.analyzeData(date);
+        System.out.println(dataAnalyzer.analyzeData(date));
     }
 
     private static String getFilePathFromUser(){
