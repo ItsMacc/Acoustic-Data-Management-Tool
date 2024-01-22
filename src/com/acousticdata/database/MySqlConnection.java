@@ -1,4 +1,4 @@
-package database;
+package com.acousticdata.database;
 
 import com.acousticdata.AcousticDataSet;
 import com.acousticdata.analysis.DataAnalyzer;
