@@ -2,6 +2,10 @@
  * The main package for acoustic data processing in your project.
  * This package organizes classes related to the processing, analysis, visualization,
  * and utility of acoustic data.
+ *
+ * PLEASE ENSURE YOU INCLUDE THE FOLLOWING DATA IN ORDER
+ * AND SPELLING IN YOUR FILES FOR VERSION 1.2 and below:
+ * timestamp || frequency || amplitutde || duration || ocean_level || temperature
  * <p>
  * Subpackages include:
  * <ul>
