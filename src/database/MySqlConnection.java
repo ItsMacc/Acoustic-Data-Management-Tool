@@ -4,16 +4,18 @@ import com.acousticdata.AcousticDataSet;
 import com.acousticdata.analysis.DataAnalyzer;
 import com.acousticdata.io.DataReader;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class MySqlConnection {
     public static void main(String[] args) {
-        String jdbcUrl = "jdbc:mysql://localhost:3306/Acoustic_Data_Management";
-        String username = "root";
-        String password = "ilovedad";
+        String jdbcUrl = "jdbc:mysql://localhost:3306/{YOUR DATABASE NAME}";
+        String username = "{YOUR USERNAME}";
+        String password = "{YOUR PASSWORD}";
 
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
