@@ -23,6 +23,7 @@ public class AcousticDataProcessor {
         //Read the data
         DataReader dataReader = new DataReader();
         List<AcousticDataSet> acousticDataSetList = dataReader.readData(filePath);
+        System.out.println(acousticDataSetList);
 
         //Analyze the data
         DataAnalyzer dataAnalyzer =  new DataAnalyzer(acousticDataSetList);
