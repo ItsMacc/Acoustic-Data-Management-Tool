@@ -23,12 +23,16 @@ public class AcousticDataProcessor {
         //Read the data
         DataReader dataReader = new DataReader();
         List<AcousticDataSet> acousticDataSetList = dataReader.readData(filePath);
-        System.out.println(acousticDataSetList);
+        //Do whatever you want with the acoustic dataset list
 
         //Analyze the data
-        DataAnalyzer dataAnalyzer =  new DataAnalyzer(acousticDataSetList);
-        dataAnalyzer.analyzeData(date);
+        DataAnalyzer dataAnalyzer = new DataAnalyzer(acousticDataSetList);
+        Map<String, Double> analyzedData = dataAnalyzer.analyzeData(date);
+        //Do whatever you want with the analyzed data.
+
     }
+
+    //--------------OTHER METHODS-------------------
 
     private static String getFilePathFromUser(){
         System.out.print("Please enter the correct file path: "); //src/com/acousticdata/dataset.txt
