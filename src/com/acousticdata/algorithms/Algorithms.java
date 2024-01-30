@@ -117,7 +117,7 @@ public class Algorithms {
         }
         return energy;
     }
-
+    
     //----------------Helper methods----------------------------
 
     /**
