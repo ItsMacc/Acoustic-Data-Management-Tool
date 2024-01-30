@@ -2,8 +2,10 @@ package com.acousticdata.database;
 
 import com.acousticdata.AcousticDataSet;
 import com.acousticdata.analysis.DataAnalyzer;
+import com.acousticdata.exceptions.IllegalData;
 import com.acousticdata.io.DataReader;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -37,6 +39,12 @@ public class MySqlConnection {
             connection.close();
         }
         catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        catch (FileNotFoundException e){
+            throw new RuntimeException(e);
+        }
+        catch (IllegalData e){
             throw new RuntimeException(e);
         }
     }

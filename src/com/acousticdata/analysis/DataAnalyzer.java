@@ -70,11 +70,11 @@ public class DataAnalyzer {
             return data;
 
         } catch (InvalidDateForAnalysis e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         //If index is out of bounds, this means list is empty since there is no data for the current timestamp
         catch (IndexOutOfBoundsException e){
-            System.err.println("Invalid Date for analysis: No date found");
+            System.err.println("Illegal Date: No date found");
         }
         return data;
     }

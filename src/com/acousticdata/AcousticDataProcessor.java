@@ -1,6 +1,8 @@
 package com.acousticdata;
 
 import com.acousticdata.analysis.DataAnalyzer;
+import com.acousticdata.exceptions.AcousticDataException;
+import com.acousticdata.exceptions.IllegalData;
 import com.acousticdata.io.DataReader;
 
 import java.io.File;
@@ -13,7 +15,7 @@ import java.util.Scanner;
 public class AcousticDataProcessor {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AcousticDataException, FileNotFoundException {
         System.out.println("Welcome to the Acoustic Data Processor!\n");
 
         //Get input from user

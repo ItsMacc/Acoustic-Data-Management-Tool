@@ -22,8 +22,10 @@ public class DataReader {
      *
      * @param filePath the path of the file.
      * @return a list of acoustic data sets.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws IllegalData if there is an issue with the format or content of the data.
      */
-    public List<AcousticDataSet> readData(String filePath) {
+    public List<AcousticDataSet> readData(String filePath) throws FileNotFoundException, IllegalData {
         List<AcousticDataSet> dataSet = new ArrayList<>();
 
         try {
@@ -36,10 +38,12 @@ public class DataReader {
                 dataSet.add(data);
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalData e) {
-            e.printStackTrace();
+        }
+        catch (FileNotFoundException e) {
+            throw new FileNotFoundException("File not found: " + filePath);
+        }
+        catch (IllegalData e) {
+            throw new IllegalData("Error parsing data: " + e.getMessage());
         }
 
         return dataSet;
@@ -50,19 +54,52 @@ public class DataReader {
      *
      * @param line the line of data containing key-value pairs.
      * @return an AcousticDataSet object.
+     * @throws IllegalData if there is an issue with the format or content of the data.
      */
     private static AcousticDataSet parseData(String line) throws IllegalData {
         String[] keyValuePairs = line.split(", ");
 
-        String timestamp = extractValue(keyValuePairs[0], "timestamp");
-        int frequency = extractIntValue(keyValuePairs[1], "frequency");
-        int amplitude = extractIntValue(keyValuePairs[2], "amplitude");
-        double duration = extractDoubleValue(keyValuePairs[3], "duration");
-        String oceanLevel = extractValue(keyValuePairs[4], "ocean_level");
-        double temperature = extractDoubleValue(keyValuePairs[5],"temperature");
+        String timestamp = "";
+        int frequency = 0;
+        int amplitude = 0;
+        double duration = 0.0;
+        String oceanLevel = "";
+        double temperature = 0.0;
 
+        for (String pair : keyValuePairs) {
+            String[] pairComponents = pair.split(":");
+            String key = pairComponents[0].trim();
+            String value = pairComponents[1].trim();
 
-        return new AcousticDataSet(timestamp, frequency, amplitude, duration,oceanLevel,temperature);
+            switch (key) {
+                case "timestamp":
+                    timestamp = value;
+                    break;
+                case "frequency":
+                    frequency = Integer.parseInt(value);
+                    break;
+                case "amplitude":
+                    amplitude = Integer.parseInt(value);
+                    break;
+                case "duration":
+                    duration = Double.parseDouble(value);
+                    break;
+                case "ocean_level":
+                    oceanLevel = value;
+                    break;
+                case "temperature":
+                    temperature = Double.parseDouble(value);
+                    break;
+                default:
+                    throw new IllegalData("Unknown key: " + key);
+            }
+        }
+
+        if (timestamp.isEmpty() || frequency == 0 || amplitude == 0 || duration == 0.0 || oceanLevel.isEmpty() || temperature == 0.0) {
+            throw new IllegalData("Missing key or value");
+        }
+
+        return new AcousticDataSet(timestamp, frequency, amplitude, duration, oceanLevel, temperature);
     }
 
     /**
@@ -73,7 +110,11 @@ public class DataReader {
      * @return the value associated with the key.
      */
     private static String extractValue(String pair, String key) {
-        return pair.split(":")[1].trim();
+        String[] keyValue = pair.split(":");
+        if (keyValue.length == 2 && keyValue[0].trim().equals(key)) {
+            return keyValue[1].trim();
+        }
+        return "";
     }
 
     /**
