@@ -3,11 +3,9 @@ package com.acousticdata.io;
 import com.acousticdata.AcousticDataSet;
 import com.acousticdata.exceptions.IllegalData;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * A class to read acoustic data from a file and convert it into AcousticDataSet type.
@@ -30,14 +28,17 @@ public class DataReader {
 
         try {
             File file = new File(filePath);
-            Scanner sc = new Scanner(file);
+            BufferedReader sc = new BufferedReader(new FileReader(file));
 
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                AcousticDataSet data = parseData(line);
-                dataSet.add(data);
+            String line;
+            try {
+                while ( (line = sc.readLine()) !=null) {
+                    AcousticDataSet data = parseData(line);
+                    dataSet.add(data);
+                }
+            } catch (IOException e){
+                e.printStackTrace();
             }
-
         }
         catch (FileNotFoundException e) {
             throw new FileNotFoundException("File not found: " + filePath);
