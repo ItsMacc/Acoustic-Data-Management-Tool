@@ -2,12 +2,10 @@ package com.acousticdata;
 
 import com.acousticdata.analysis.DataAnalyzer;
 import com.acousticdata.exceptions.AcousticDataException;
-import com.acousticdata.exceptions.IllegalData;
 import com.acousticdata.io.DataReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -24,11 +22,11 @@ public class AcousticDataProcessor {
 
         //Read the data
         DataReader dataReader = new DataReader();
-        List<AcousticDataSet> acousticDataSetList = dataReader.readData(filePath);
+        List<AcousticData> acousticDataList = dataReader.readData(filePath);
         //Do whatever you want with the acoustic dataset list
 
         //Analyze the data
-        DataAnalyzer dataAnalyzer = new DataAnalyzer(acousticDataSetList);
+        DataAnalyzer dataAnalyzer = new DataAnalyzer(acousticDataList);
         Map<String, Double> analyzedData = dataAnalyzer.analyzeData(date);
         //Do whatever you want with the analyzed data.
 

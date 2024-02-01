@@ -1,6 +1,6 @@
 package com.acousticdata.database;
 
-import com.acousticdata.AcousticDataSet;
+import com.acousticdata.AcousticData;
 import com.acousticdata.analysis.DataAnalyzer;
 import com.acousticdata.exceptions.IllegalData;
 import com.acousticdata.io.DataReader;
@@ -26,10 +26,10 @@ public class MySqlConnection {
             createAnalysisDataTable(statement);
 
             DataReader dataReader = new DataReader();
-            List<AcousticDataSet> acousticDataSetList = dataReader.readData("src/com/acousticdata/dataset.txt");
+            List<AcousticData> acousticDataList = dataReader.readData("src/com/acousticdata/dataset.txt");
 
             //Analyze the data
-            DataAnalyzer dataAnalyzer =  new DataAnalyzer(acousticDataSetList);
+            DataAnalyzer dataAnalyzer =  new DataAnalyzer(acousticDataList);
             Map<String,Map<String,Double>> data = dataAnalyzer.analyzeData();
 
             insertAnalyzedData(statement,data);

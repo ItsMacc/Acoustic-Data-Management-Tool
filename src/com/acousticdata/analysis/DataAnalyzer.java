@@ -1,6 +1,6 @@
 package com.acousticdata.analysis;
 
-import com.acousticdata.AcousticDataSet;
+import com.acousticdata.AcousticData;
 import com.acousticdata.algorithms.Algorithms;
 import com.acousticdata.exceptions.InvalidDateForAnalysis;
 
@@ -11,10 +11,10 @@ import java.util.*;
  */
 public class DataAnalyzer {
 
-    private List<AcousticDataSet> acousticDataSetList;
+    private List<AcousticData> acousticDataList;
 
-    public DataAnalyzer(List<AcousticDataSet> acousticDataSetList){
-        this.acousticDataSetList = acousticDataSetList;
+    public DataAnalyzer(List<AcousticData> acousticDataList){
+        this.acousticDataList = acousticDataList;
     }
 
 
@@ -23,10 +23,10 @@ public class DataAnalyzer {
      * @return a map of the following strucutre {date : {analysis:value} }
      */
     public Map<String, Map<String,Double>> analyzeData(){
-        Map<String, List<AcousticDataSet>> acousticData = new LinkedHashMap<>();
+        Map<String, List<AcousticData>> acousticData = new LinkedHashMap<>();
         Map<String, Map<String,Double>> databaseRecord = new LinkedHashMap<>();
 
-        for (AcousticDataSet dataSet: acousticDataSetList){
+        for (AcousticData dataSet: acousticDataList){
             String date = dataSet.getTimestamp();
 
             acousticData.putIfAbsent(date, new ArrayList<>());
@@ -50,22 +50,22 @@ public class DataAnalyzer {
         Map<String, Double> data = new LinkedHashMap<>();
 
         try {
-            data.put("mean (Frequency)",Algorithms.meanFrequency(acousticDataSetList,date));
-            data.put("mean (Amplitude)",Algorithms.meanAmplitude(acousticDataSetList,date));
-            data.put("mean (Duration)",Algorithms.meanDuration(acousticDataSetList,date));
-            data.put("mean (Temperature)",Algorithms.meanTemperature(acousticDataSetList,date));
+            data.put("mean (Frequency)",Algorithms.meanFrequency(acousticDataList,date));
+            data.put("mean (Amplitude)",Algorithms.meanAmplitude(acousticDataList,date));
+            data.put("mean (Duration)",Algorithms.meanDuration(acousticDataList,date));
+            data.put("mean (Temperature)",Algorithms.meanTemperature(acousticDataList,date));
 
-            data.put("median (Frequency)",Algorithms.medianFrequency(acousticDataSetList,date));
-            data.put("median (Amplitude)",Algorithms.medianAmplitude(acousticDataSetList,date));
-            data.put("median (Duration)",Algorithms.medianDuration(acousticDataSetList,date));
-            data.put("median (Temperature)",Algorithms.medianTemperature(acousticDataSetList,date));
+            data.put("median (Frequency)",Algorithms.medianFrequency(acousticDataList,date));
+            data.put("median (Amplitude)",Algorithms.medianAmplitude(acousticDataList,date));
+            data.put("median (Duration)",Algorithms.medianDuration(acousticDataList,date));
+            data.put("median (Temperature)",Algorithms.medianTemperature(acousticDataList,date));
 
-            data.put("standard deviation (frequency)",Algorithms.standardDeviation(acousticDataSetList,"frequency"));
-            data.put("standard deviation (amplitude)",Algorithms.standardDeviation(acousticDataSetList,"amplitude"));
-            data.put("standard deviation (duration)",Algorithms.standardDeviation(acousticDataSetList,"duration"));
-            data.put("standard deviation (temperature)",Algorithms.standardDeviation(acousticDataSetList,"temperature"));
+            data.put("standard deviation (frequency)",Algorithms.standardDeviation(acousticDataList,"frequency"));
+            data.put("standard deviation (amplitude)",Algorithms.standardDeviation(acousticDataList,"amplitude"));
+            data.put("standard deviation (duration)",Algorithms.standardDeviation(acousticDataList,"duration"));
+            data.put("standard deviation (temperature)",Algorithms.standardDeviation(acousticDataList,"temperature"));
 
-            data.put("Energy of signal",Algorithms.calculateEnergy(acousticDataSetList,date));
+            data.put("Energy of signal",Algorithms.calculateEnergy(acousticDataList,date));
 
             return data;
 

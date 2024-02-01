@@ -1,6 +1,6 @@
 package com.acousticdata.io;
 
-import com.acousticdata.AcousticDataSet;
+import com.acousticdata.AcousticData;
 import com.acousticdata.exceptions.IllegalData;
 
 import java.io.*;
@@ -8,23 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A class to read acoustic data from a file and convert it into AcousticDataSet type.
+ * A class to read acoustic data from a file and convert it into AcousticData type.
  * Assumes the data in the file is formatted as key-value pairs separated by commas.
  * Example data line: "timestamp: 11th January 2023, frequency: 120hz, amplitude: 20hz, duration: 0.3 sec"
- * Each line represents a single AcousticDataSet.
+ * Each line represents a single AcousticData.
  */
 public class DataReader {
 
     /**
-     * Reads the data from a file and converts it into AcousticDataSet type.
+     * Reads the data from a file and converts it into AcousticData type.
      *
      * @param filePath the path of the file.
      * @return a list of acoustic data sets.
      * @throws FileNotFoundException if the specified file is not found.
      * @throws IllegalData if there is an issue with the format or content of the data.
      */
-    public List<AcousticDataSet> readData(String filePath) throws FileNotFoundException, IllegalData {
-        List<AcousticDataSet> dataSet = new ArrayList<>();
+    public List<AcousticData> readData(String filePath) throws FileNotFoundException, IllegalData {
+        List<AcousticData> dataSet = new ArrayList<>();
 
         try {
             File file = new File(filePath);
@@ -33,7 +33,7 @@ public class DataReader {
             String line;
             try {
                 while ( (line = sc.readLine()) !=null) {
-                    AcousticDataSet data = parseData(line);
+                    AcousticData data = parseData(line);
                     dataSet.add(data);
                 }
                 sc.close();
@@ -53,13 +53,13 @@ public class DataReader {
     }
 
     /**
-     * Parses a line of data into an AcousticDataSet object.
+     * Parses a line of data into an AcousticData object.
      *
      * @param line the line of data containing key-value pairs.
-     * @return an AcousticDataSet object.
+     * @return an AcousticData object.
      * @throws IllegalData if there is an issue with the format or content of the data.
      */
-    private static AcousticDataSet parseData(String line) throws IllegalData {
+    private static AcousticData parseData(String line) throws IllegalData {
         String[] keyValuePairs = line.split(", ");
 
         String timestamp = "";
@@ -102,7 +102,7 @@ public class DataReader {
             throw new IllegalData("Missing key or value");
         }
 
-        return new AcousticDataSet(timestamp, frequency, amplitude, duration, oceanLevel, temperature);
+        return new AcousticData(timestamp, frequency, amplitude, duration, oceanLevel, temperature);
     }
 
     /**

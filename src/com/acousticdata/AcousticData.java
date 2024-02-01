@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @author Aakarshan Khosla
  */
 
-public class AcousticDataSet {
+public class AcousticData {
     //Instance variables
     private String timestamp;
     private int frequency;
@@ -18,7 +18,7 @@ public class AcousticDataSet {
     private String oceanLevel;
     private double temperature;
     //Constructor
-    public AcousticDataSet(String timestamp, int frequency, int amplitude, double duration, String oceanLevel, double temperature) throws IllegalData {
+    public AcousticData(String timestamp, int frequency, int amplitude, double duration, String oceanLevel, double temperature) throws IllegalData {
         if(timestamp == null || timestamp.isBlank()){
             throw new IllegalData("Illegal Data: "+timestamp);
         }
@@ -103,7 +103,7 @@ public class AcousticDataSet {
     //Other methods
     @Override
     public String toString(){
-        return "AcousticDataSet {\n" +
+        return "AcousticData {\n" +
                 "timestamp: " + timestamp + "\n" +
                 "frequency (hz): " + frequency + "\n" +
                 "amplitude (m): " + amplitude + "\n" +
@@ -113,19 +113,19 @@ public class AcousticDataSet {
     }
 
     //Comparators
-    public static Comparator<AcousticDataSet> BY_FREQUENCY =
-            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.frequency,a2.frequency);
+    public static Comparator<AcousticData> BY_FREQUENCY =
+            (AcousticData a1, AcousticData a2) -> Double.compare(a1.frequency,a2.frequency);
 
-    public static Comparator<AcousticDataSet> BY_AMPLITUDE =
-            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.amplitude,a2.amplitude);
+    public static Comparator<AcousticData> BY_AMPLITUDE =
+            (AcousticData a1, AcousticData a2) -> Double.compare(a1.amplitude,a2.amplitude);
 
-    public static Comparator<AcousticDataSet> BY_DURATION =
-            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.duration,a2.duration);
+    public static Comparator<AcousticData> BY_DURATION =
+            (AcousticData a1, AcousticData a2) -> Double.compare(a1.duration,a2.duration);
 
-    public static Comparator<AcousticDataSet> BY_TIMESTAMP =
-            (AcousticDataSet a1, AcousticDataSet a2) -> a1.timestamp.compareTo(a2.timestamp);
+    public static Comparator<AcousticData> BY_TIMESTAMP =
+            (AcousticData a1, AcousticData a2) -> a1.timestamp.compareTo(a2.timestamp);
 
-    public static Comparator<AcousticDataSet> BY_TEMPERATURE =
-            (AcousticDataSet a1, AcousticDataSet a2) -> Double.compare(a1.temperature,a2.temperature);
+    public static Comparator<AcousticData> BY_TEMPERATURE =
+            (AcousticData a1, AcousticData a2) -> Double.compare(a1.temperature,a2.temperature);
 
 }

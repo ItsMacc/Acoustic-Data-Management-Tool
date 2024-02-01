@@ -1,14 +1,11 @@
 package com.acousticdata.algorithms;
 
 
-import com.acousticdata.AcousticDataSet;
+import com.acousticdata.AcousticData;
 import com.acousticdata.exceptions.InvalidDateForAnalysis;
-import com.acousticdata.io.DataReader;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Algorithms for all analysis are implemented here
@@ -17,35 +14,35 @@ public class Algorithms {
 
     /**
      * A method to find the mean of all the frequencies in the dataset of a particular date
-     * @param acousticDataSet the dataset that we want to analyze
+     * @param acousticData the dataset that we want to analyze
      * @param date the date whose data we want.
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the frequencies in dataset of a particular date
      */
-    public static double meanFrequency(List<AcousticDataSet> acousticDataSet, String date) throws InvalidDateForAnalysis{
-        return calculateMean(getDataForDate(acousticDataSet,"frequency",date));
+    public static double meanFrequency(List<AcousticData> acousticData, String date) throws InvalidDateForAnalysis{
+        return calculateMean(getDataForDate(acousticData,"frequency",date));
     }
 
     /**
      * A method to find the mean of all the amplitudes in dataset of a particular date
-     * @param acousticDataSet the dataset that we want to analyze
+     * @param acousticData the dataset that we want to analyze
      * @param date the date whose data we want.
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the amplitudes in dataset of a particular date
      */
-    public static double meanAmplitude(List<AcousticDataSet> acousticDataSet, String date) throws InvalidDateForAnalysis{
-        return calculateMean(getDataForDate(acousticDataSet,"amplitude",date));
+    public static double meanAmplitude(List<AcousticData> acousticData, String date) throws InvalidDateForAnalysis{
+        return calculateMean(getDataForDate(acousticData,"amplitude",date));
     }
 
     /**
      * A method to find the mean of all the durations in dataset of a particular date
-     * @param acousticDataSet the dataset that we want to analyze
+     * @param acousticData the dataset that we want to analyze
      * @param date the date whose data we want.
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the durations in dataset of a particular date
      */
-    public static double meanDuration(List<AcousticDataSet> acousticDataSet, String date) throws InvalidDateForAnalysis{
-        return calculateMean(getDataForDate(acousticDataSet,"duration",date));
+    public static double meanDuration(List<AcousticData> acousticData, String date) throws InvalidDateForAnalysis{
+        return calculateMean(getDataForDate(acousticData,"duration",date));
     }
 
     /**
@@ -55,8 +52,8 @@ public class Algorithms {
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return mean of the temperatures in dataset of a particular date
      */
-    public static double meanTemperature(List<AcousticDataSet> acousticDataSetList, String date) throws InvalidDateForAnalysis{
-        return calculateMean(getDataForDate(acousticDataSetList,"temperature",date));
+    public static double meanTemperature(List<AcousticData> acousticDataList, String date) throws InvalidDateForAnalysis{
+        return calculateMean(getDataForDate(acousticDataList,"temperature",date));
     }
 
     /**
@@ -66,8 +63,8 @@ public class Algorithms {
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the frequencies in dataset of a particular date
      */
-    public static double medianFrequency(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
-        return calculateMedian(getDataForDate(acousticDataSetList,"frequency",date));
+    public static double medianFrequency(List<AcousticData> acousticDataList, String date) throws InvalidDateForAnalysis{
+        return calculateMedian(getDataForDate(acousticDataList,"frequency",date));
     }
 
     /**
@@ -77,8 +74,8 @@ public class Algorithms {
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the amplitudes in dataset of a particular date
      */
-    public static double medianAmplitude(List<AcousticDataSet> acousticDataSetList, String date) throws InvalidDateForAnalysis{
-        return calculateMedian(getDataForDate(acousticDataSetList,"amplitude",date));
+    public static double medianAmplitude(List<AcousticData> acousticDataList, String date) throws InvalidDateForAnalysis{
+        return calculateMedian(getDataForDate(acousticDataList,"amplitude",date));
     }
 
     /**
@@ -88,8 +85,8 @@ public class Algorithms {
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the duration in dataset of a particular date
      */
-    public static double medianDuration(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
-        return calculateMedian(getDataForDate(acousticDataSetList,"duration",date));
+    public static double medianDuration(List<AcousticData> acousticDataList, String date) throws InvalidDateForAnalysis{
+        return calculateMedian(getDataForDate(acousticDataList,"duration",date));
     }
 
     /**
@@ -99,8 +96,8 @@ public class Algorithms {
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return median of the temperature in dataset of a particular date
      */
-    public static double medianTemperature(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
-        return calculateMedian(getDataForDate(acousticDataSetList,"temperature",date));
+    public static double medianTemperature(List<AcousticData> acousticDataList, String date) throws InvalidDateForAnalysis{
+        return calculateMedian(getDataForDate(acousticDataList,"temperature",date));
     }
 
     /**
@@ -109,8 +106,8 @@ public class Algorithms {
      * @throws InvalidDateForAnalysis if no record exists for date
      * @return energy of acoustic signal of data
      */
-    public static double calculateEnergy(List<AcousticDataSet> acousticDataSetList,String date) throws InvalidDateForAnalysis{
-        List<Object> data = getDataForDate(acousticDataSetList,"amplitude",date);
+    public static double calculateEnergy(List<AcousticData> acousticDataList, String date) throws InvalidDateForAnalysis{
+        List<Object> data = getDataForDate(acousticDataList,"amplitude",date);
         double energy = 0;
         for(Object amplitude : data){
             energy +=  ((int)amplitude * (int)amplitude);
@@ -127,11 +124,11 @@ public class Algorithms {
      * @param date the date whose data we want.
      * @return List of data for the specified type and date
      */
-    private static List<Object> getDataForDate(List<AcousticDataSet> dataSet, String data, String date) throws InvalidDateForAnalysis{
+    private static List<Object> getDataForDate(List<AcousticData> dataSet, String data, String date) throws InvalidDateForAnalysis{
         List<Object> dataList = new ArrayList<>();
         switch (data) {
             case "timestamp":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     if (d.getTimestamp().equals(date)) {
                         dataList.add(d.getTimestamp());
                     }
@@ -141,28 +138,28 @@ public class Algorithms {
                 }
                 break;
             case "frequency":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     if (d.getTimestamp().equals(date)) {
                         dataList.add(d.getFrequency());
                     }
                 }
                 break;
             case "amplitude":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     if (d.getTimestamp().equals(date)) {
                         dataList.add(d.getAmplitude());
                     }
                 }
                 break;
             case "duration":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     if (d.getTimestamp().equals(date)) {
                         dataList.add(d.getDuration());
                     }
                 }
                 break;
             case "temperature":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     if (d.getTimestamp().equals(date)) {
                         dataList.add(d.getTemperature());
                     }
@@ -215,31 +212,31 @@ public class Algorithms {
      * @param data the values of data to retrieve ("timestamp", "frequency", "amplitude", "duration")
      * @return List of data for the specified type
      */
-    private static List<Object> getData(List<AcousticDataSet> dataSet, String data) {
+    private static List<Object> getData(List<AcousticData> dataSet, String data) {
         List<Object> dataList = new ArrayList<>();
         switch (data) {
             case "timestamp":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     dataList.add(d.getTimestamp());
                 }
                 break;
             case "frequency":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     dataList.add(d.getFrequency());
                 }
                 break;
             case "amplitude":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     dataList.add(d.getAmplitude());
                 }
                 break;
             case "duration":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     dataList.add(d.getDuration());
                 }
                 break;
             case "temperature":
-                for (AcousticDataSet d : dataSet) {
+                for (AcousticData d : dataSet) {
                     dataList.add(d.getTemperature());
                 }
                 break;
@@ -255,7 +252,7 @@ public class Algorithms {
      * @param data the type of data to retrieve ("frequency", "amplitude", "duration")
      * @return standard deviation of the dataset
      */
-    public static double standardDeviation(List<AcousticDataSet> dataSet, String data) {
+    public static double standardDeviation(List<AcousticData> dataSet, String data) {
         List<Object> dataList = getData(dataSet, data);
 
         double mean = calculateMean(dataList);
