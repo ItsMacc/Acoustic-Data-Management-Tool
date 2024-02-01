@@ -11,13 +11,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class MySqlConnection {
     public static void main(String[] args) {
-        String jdbcUrl = "jdbc:mysql://localhost:3306/{YOUR DATABASE NAME}";
-        String username = "{YOUR USERNAME}";
-        String password = "{YOUR PASSWORD}";
+        String jdbcUrl = "jdbc:mysql://localhost:3306/Acoustic_Data_Management";
+        String username = "root";
+        String password = "ilovedad";
 
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
@@ -26,7 +27,8 @@ public class MySqlConnection {
             createAnalysisDataTable(statement);
 
             DataReader dataReader = new DataReader();
-            List<AcousticData> acousticDataList = dataReader.readData("src/com/acousticdata/dataset.txt");
+            List<AcousticData> acousticDataList = dataReader.readData("dataset.txt");
+            insertAcousticData(statement,acousticDataList);
 
             //Analyze the data
             DataAnalyzer dataAnalyzer =  new DataAnalyzer(acousticDataList);
@@ -98,6 +100,32 @@ public class MySqlConnection {
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        }
+    }
+    private static void insertAcousticData(Statement statement, List<AcousticData> acousticDataSetList){
+        try {
+            ListIterator iterator = acousticDataSetList.listIterator();
+
+            while (iterator.hasNext()){
+                AcousticData data = (AcousticData) iterator.next();
+                String timestamp = data.getTimestamp();
+                int frequency = data.getFrequency();
+                int amplitude = data.getAmplitude();
+                double duration = data.getDuration();
+                String oceanLevel = data.getOceanLevel();
+                double temperature = data.getTemperature();
+
+                String insertQuery = "INSERT INTO AcousticData (timestamp, frequency, amplitude, duration, ocean_level, temperature) " +
+                        "VALUES ('" + timestamp + "', " +
+                        frequency + ", " + amplitude + ", " +
+                        duration + ", '" + oceanLevel + "', " +
+                        temperature + ")";
+
+                statement.executeUpdate(insertQuery);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
