@@ -36,6 +36,8 @@ public class DataReader {
                     AcousticDataSet data = parseData(line);
                     dataSet.add(data);
                 }
+                sc.close();
+
             } catch (IOException e){
                 e.printStackTrace();
             }
