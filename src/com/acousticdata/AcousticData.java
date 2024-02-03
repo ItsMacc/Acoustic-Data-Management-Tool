@@ -11,7 +11,7 @@ import java.util.Comparator;
 
 public class AcousticData {
     //Instance variables
-    private String timestamp;
+    private final String timestamp;
     private int frequency;
     private int amplitude;
     private double duration;
