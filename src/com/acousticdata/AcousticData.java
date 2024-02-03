@@ -17,6 +17,7 @@ public class AcousticData {
     private double duration;
     private String oceanLevel;
     private double temperature;
+
     //Constructor
     public AcousticData(String timestamp, int frequency, int amplitude, double duration, String oceanLevel, double temperature) throws IllegalData {
         if(timestamp == null || timestamp.isBlank()){
