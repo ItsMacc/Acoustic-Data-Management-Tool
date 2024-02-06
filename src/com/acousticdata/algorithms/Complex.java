@@ -33,7 +33,7 @@ public class Complex {
     //Other methods
 
     /**
-     * Adding to complex numbers
+     * Adding two complex numbers
      * @param other the complex number to be added
      * @return a complex number representing the sum
      */
@@ -41,6 +41,11 @@ public class Complex {
         return new Complex(this.real+other.real,this.imaginary+other.imaginary);
     }
 
+    /**
+     * Multiplying two complex numbers
+     * @param other the other complex number to be multiplied
+     * @return a complex number representing the product
+     */
     public Complex multiply(Complex other){
         //(a+ib)*(c+id) = ac + aid + cib + i^2 bd
         // = ac + i(ad+bc) + (-1)bd = ac + i(ad+bc) -bd
