@@ -1,5 +1,6 @@
 package com.acousticdata;
 
+import com.acousticdata.algorithms.*;
 import com.acousticdata.analysis.DataAnalyzer;
 import com.acousticdata.exceptions.AcousticDataException;
 import com.acousticdata.io.DataReader;
@@ -30,6 +31,8 @@ public class AcousticDataProcessor {
         Map<String, Double> analyzedData = dataAnalyzer.analyzeData(date);
         //Do whatever you want with the analyzed data.
 
+        Complex[] fourierTransformationArray = Algorithms.transformData(dataReader.extractSoundPressure("time_domain_data.json"));
+        //Do whatever you want with the fourier transformation output array
     }
 
     //--------------OTHER METHODS-------------------

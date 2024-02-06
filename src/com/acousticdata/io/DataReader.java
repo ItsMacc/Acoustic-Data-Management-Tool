@@ -4,8 +4,11 @@ import com.acousticdata.AcousticData;
 import com.acousticdata.exceptions.IllegalData;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.*;
 
 /**
  * A class to read acoustic data from a file and convert it into AcousticData type.
@@ -51,6 +54,39 @@ public class DataReader {
 
         return dataSet;
     }
+
+    /**
+     * Extracts sound pressure values from a JSON file and returns them as a list of Double values.
+     *
+     * @param jsonFilePath the file path to the JSON file containing sound pressure data
+     * @return a list of Double values representing the extracted sound pressure data
+     */
+    public List<Double> extractSoundPressure(String jsonFilePath) {
+        List<Double> soundPressureValues = new ArrayList<>();
+
+        try {
+            String jsonData = Files.readString(Paths.get(jsonFilePath));
+            JSONObject jsonObject = new JSONObject(jsonData);
+
+            for (String key : jsonObject.keySet()){
+                JSONObject soundObject = jsonObject.getJSONObject(key);
+
+                JSONArray soundPressureArray = soundObject.getJSONArray("sound_pressure");
+
+                for (int i = 0; i < soundPressureArray.length(); i++) {
+                    double soundPressure = soundPressureArray.getDouble(i);
+                    soundPressureValues.add(soundPressure);
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return soundPressureValues;
+    }
+
+    //----------Other methods-----------------
 
     /**
      * Parses a line of data into an AcousticData object.

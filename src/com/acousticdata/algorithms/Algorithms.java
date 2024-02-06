@@ -114,7 +114,23 @@ public class Algorithms {
         }
         return energy;
     }
-    
+
+    /**
+     * Transforms a list of sound data represented as Double values into a double array.
+     *
+     * @param soundData the list of sound data to be transformed
+     * @return the transformed array containing the sound pressure data
+     */
+    public static Complex[] transformData(List<Double> soundData){
+        double[] soundPressureArray = new double[soundData.size()];
+
+        for (int i = 0; i < soundData.size(); i++){
+            soundPressureArray[i] = soundData.get(i);
+        }
+
+        return discreteFourierTransform(soundPressureArray);
+    }
+
     //----------------Helper methods----------------------------
 
     /**
@@ -269,5 +285,34 @@ public class Algorithms {
 
         double variance = sumOfSquaredDifferences / dataList.size();
         return Math.sqrt(variance);
+    }
+
+    /**
+     * Computes the discrete Fourier transform (DFT) of the input array.
+     *
+     * @param input the input array containing the time-domain signal
+     * @return the complex-valued array representing the frequency-domain signal
+     */
+    public static Complex[] discreteFourierTransform(double[] input){
+        int length = input.length;
+        Complex[] output = new Complex[length];
+
+        //Making a new input array of Complex type
+        Complex[] complexInput = new Complex[length];
+        for (int i = 0; i< length; i++){
+            complexInput[i] = new Complex(input[i],0);
+        }
+
+
+        for (int k = 0; k < length; k++){
+            output[k] = new Complex();
+
+            for (int n = 0; n < length; n++){
+                //Phase shift
+                double thetha = 2 * Math.PI * k * n/length;
+                output[k] = output[k].add(new Complex(Math.cos(thetha),-Math.sin(thetha)).multiply(complexInput[n]));
+            }
+        }
+        return output;
     }
 }
