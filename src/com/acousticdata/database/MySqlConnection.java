@@ -16,9 +16,9 @@ import java.util.Map;
 
 public class MySqlConnection {
     public static void main(String[] args) {
-        String jdbcUrl = "jdbc:mysql://localhost:3306/Acoustic_Data_Management";
-        String username = "root";
-        String password = "ilovedad";
+        String jdbcUrl = "jdbc:mysql://localhost:3306/{YOUR_DATABASE_NAME}";
+        String username = "{USER}";
+        String password = "{PASSWORD}";
 
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl,username,password);
