@@ -135,7 +135,8 @@ public class DataReader {
         }
 
         if (timestamp.isEmpty() || frequency == 0 || amplitude == 0 ||
-                duration == 0.0 || oceanLevel.isEmpty() || temperature == 0.0) {
+                duration == 0.0 || oceanLevel.isEmpty() ||
+                temperature == 0.0) {
             throw new IllegalData("Missing key or value");
         }
 
