@@ -19,28 +19,19 @@ public class AcousticData {
     private double temperature;
 
     //Constructor
-    public AcousticData(String timestamp, int frequency, int amplitude, double duration, String oceanLevel, double temperature) throws IllegalData {
-        if(timestamp == null || timestamp.isBlank()){
-            throw new IllegalData("Illegal Data: "+timestamp);
-        }
-        if(frequency<0){
-            throw new IllegalData("Illegal Data: "+frequency);
-        }
-        if(amplitude<0){
-            throw new IllegalData("Illegal Data: "+amplitude);
-        }
-        if(duration<=0){
-            throw new IllegalData("Illegal Data: "+duration);
-        }
-        if(oceanLevel==null || oceanLevel.isBlank()){
-            throw new IllegalData("Illegal Data: "+oceanLevel);
+    public AcousticData(String timestamp, int frequency, int amplitude,
+                        double duration, String oceanLevel,
+                        double temperature) throws IllegalData {
+        if(timestamp == null || timestamp.isBlank()) {
+            throw new IllegalData("Illegal Data: " + timestamp);
         }
         this.timestamp = timestamp;
-        this.frequency = frequency;
-        this.amplitude = amplitude;
-        this.duration = duration;
-        this.oceanLevel = oceanLevel;
-        this.temperature = temperature;
+
+        setFrequency(frequency);
+        setAmplitude(amplitude);
+        setDuration(duration);
+        setOceanLevel(oceanLevel);
+        setTemperature(temperature);
     }
 
     //Getters
